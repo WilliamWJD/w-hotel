@@ -1,25 +1,19 @@
-package com.wjd.hotel.domain;
+package com.wjd.hotel.dtos;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "quartos")
-public class Quarto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class QuartoEntradaDto {
     private Long id;
-    @Column(unique = true)
-    private Integer numQuarto;
+    private Integer num;
     private Integer andar;
     private BigDecimal valor;
 
-    public Quarto() {
+    public QuartoEntradaDto() {
     }
 
-    public Quarto(Long id, Integer numQuarto, Integer andar, BigDecimal valor) {
+    public QuartoEntradaDto(Long id, Integer num, Integer andar, BigDecimal valor) {
         this.id = id;
-        this.numQuarto = numQuarto;
+        this.num = num;
         this.andar = andar;
         this.valor = valor;
     }
@@ -32,12 +26,12 @@ public class Quarto {
         this.id = id;
     }
 
-    public Integer getnumQuarto() {
-        return numQuarto;
+    public Integer getNum() {
+        return num;
     }
 
-    public void setnumQuarto(Integer numQuarto) {
-        this.numQuarto = numQuarto;
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
     public Integer getAndar() {
@@ -58,9 +52,9 @@ public class Quarto {
 
     @Override
     public String toString() {
-        return "Quarto{" +
+        return "QuartoEntradaDto{" +
                 "id=" + id +
-                ", numQuarto=" + numQuarto +
+                ", num=" + num +
                 ", andar=" + andar +
                 ", valor=" + valor +
                 '}';
