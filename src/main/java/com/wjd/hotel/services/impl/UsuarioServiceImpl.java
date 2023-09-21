@@ -1,8 +1,8 @@
 package com.wjd.hotel.services.impl;
 
-import com.wjd.hotel.domain.Usuario;
 import com.wjd.hotel.dtos.UsuarioEntradaDto;
 import com.wjd.hotel.dtos.UsuarioSaidaDto;
+import com.wjd.hotel.exceptions.impl.DataIntegrityViolationExceptionApp;
 import com.wjd.hotel.mappers.UsuarioMapper;
 import com.wjd.hotel.repository.UsuarioRepository;
 import com.wjd.hotel.services.UsuarioService;
@@ -25,7 +25,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         try {
             return usuarioMapper.deUsuarioEntidadeParaUsuarioSaidaDto(usuarioRepository.save(usuarioMapper.deUsuarioEntradaDtoParaUsuarioEntidade(usuarioEntradaDto)));
         } catch (DataIntegrityViolationException err) {
-            throw new RuntimeException("Erro de integridade de dados");
+            throw new DataIntegrityViolationExceptionApp("Conflito na base de dados");
         }
     }
 }
