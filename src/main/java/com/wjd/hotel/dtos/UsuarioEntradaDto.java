@@ -1,29 +1,19 @@
-package com.wjd.hotel.domain;
+package com.wjd.hotel.dtos;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UsuarioEntradaDto {
     private Long id;
     private String nome;
-    @Column(name = "email", unique = true)
     private String email;
     private String cpf;
-    private String perfil;
 
-    public Usuario() {
-        this.perfil = "USER";
+    public UsuarioEntradaDto() {
     }
 
-    public Usuario(Long id, String nome, String email, String cpf) {
+    public UsuarioEntradaDto(Long id, String nome, String email, String cpf) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
-        this.perfil = "USER";
     }
 
     public Long getId() {
@@ -58,18 +48,14 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public String getPerfil() {
-        return perfil;
-    }
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "UsuarioEntradaDto{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", perfil='" + perfil + '\'' +
                 '}';
     }
 }
