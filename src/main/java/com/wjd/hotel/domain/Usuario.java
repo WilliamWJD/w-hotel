@@ -3,13 +3,13 @@ package com.wjd.hotel.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
     private String cpf;
     private String perfil;

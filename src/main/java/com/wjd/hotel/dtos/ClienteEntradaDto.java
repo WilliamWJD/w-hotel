@@ -1,22 +1,15 @@
-package com.wjd.hotel.domain;
+package com.wjd.hotel.dtos;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "clientes")
-public class Cliente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClienteEntradaDto {
     private Long id;
     private String nome;
-    @Column(unique = true)
     private String email;
     private String cpf;
 
-    public Cliente(){
+    public ClienteEntradaDto() {
     }
 
-    public Cliente(Long id, String nome, String email, String cpf) {
+    public ClienteEntradaDto(Long id, String nome, String email, String cpf) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -55,9 +48,10 @@ public class Cliente {
         this.cpf = cpf;
     }
 
+
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "UsuarioEntradaDto{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
