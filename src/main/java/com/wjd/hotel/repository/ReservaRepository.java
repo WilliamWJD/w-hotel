@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
-    @Query("SELECT r FROM Reserva r WHERE r.quarto.id = :quartoId AND r.checkOut > :dataCheckIn OR r.checkIn = :dataCheckIn")
+    @Query("SELECT r FROM Reserva r WHERE r.quarto.id = :quartoId AND (r.checkOut > :dataCheckIn OR r.checkIn = :dataCheckIn)")
     Optional<Reserva> verificarDisponibilidadeDeQuarto(@Param("quartoId") final Long quartoId, @Param("dataCheckIn") final LocalDate dataCheckIn);
     @Query("SELECT r FROM Reserva r WHERE r.quarto.id = :quartoId AND r.checkOut > :dataCheckIn AND r.id <> :reservaId")
     Optional<Reserva> verificarDisponibilidadeDeQuarto(@Param("quartoId") final Long quartoId, @Param("dataCheckIn") final LocalDate dataCheckIn, @Param("reservaId") final Long reservaId);
