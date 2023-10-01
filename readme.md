@@ -1,9 +1,10 @@
 <h1 align="center">W-Hotel</h1>
 
 <h4 align="center">
-  ☕ Realize reservas de um quarto
+  ☕ Realize reservas de um quarto 
 </h4>
 
+<img src="./MER.jpg" />
 
 ## 💻 Projeto
 O projeto W-Hotel é uma API simples que permite cadastrar quartos, clientes e usuários, além de realizar reservas de quartos com validações, proporcionando uma experiência eficiente.
