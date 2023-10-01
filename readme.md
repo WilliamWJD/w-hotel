@@ -15,14 +15,13 @@ Tecnologias utilizadas no projeto:
 
 - Java
 - Spring Boot
-- Banco de Dados Postgre
+- Banco de Dados Postgres
 - JPA
 
 ## 👨‍💻 Endpoints
 - [POST] salvar usuário
 - [POST] salvar cliente
 - [POST] salvar quarto
- </br>
 - [POST] realizar uma reserva
 - [GET] buscar uma reserva
 - [PUT] atualizar reserva
