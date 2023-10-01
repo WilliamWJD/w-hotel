@@ -3,6 +3,7 @@ package com.wjd.hotel.services.impl;
 import com.wjd.hotel.dtos.ClienteEntradaDto;
 import com.wjd.hotel.dtos.ClienteSaidaDto;
 import com.wjd.hotel.exceptions.impl.DataIntegrityViolationExceptionApp;
+import com.wjd.hotel.exceptions.impl.ObjectNotFoundExceptionApp;
 import com.wjd.hotel.mappers.ClienteMapper;
 import com.wjd.hotel.repository.ClienteRepository;
 import com.wjd.hotel.services.ClienteService;
@@ -14,7 +15,7 @@ public class ClienteServiceImpl implements ClienteService {
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
 
-    public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper){
+    public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper) {
         this.clienteRepository = clienteRepository;
         this.clienteMapper = clienteMapper;
     }
@@ -26,5 +27,10 @@ public class ClienteServiceImpl implements ClienteService {
         } catch (DataIntegrityViolationException err) {
             throw new DataIntegrityViolationExceptionApp("Conflito na base de dados");
         }
+    }
+
+    @Override
+    public ClienteSaidaDto buscarClientePorId(Long id) {
+        return clienteMapper.deClienteEntidadeParaClienteSaidaDto(clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundExceptionApp("Nenhum cliente encontrado com o ID: " + id)));
     }
 }

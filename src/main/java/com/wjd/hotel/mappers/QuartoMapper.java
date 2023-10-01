@@ -33,4 +33,8 @@ public class QuartoMapper {
 
         return quartoSaidaDto;
     }
+
+    public Quarto deQuartoSaidaDtoParaQuartoEntidade(QuartoSaidaDto quartoSaidaDto){
+        return new Quarto(quartoSaidaDto.getId(), quartoSaidaDto.getNum(), quartoSaidaDto.getAndar(), null);
+    }
 }

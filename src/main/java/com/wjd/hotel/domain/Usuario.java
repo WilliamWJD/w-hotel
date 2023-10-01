@@ -1,6 +1,10 @@
 package com.wjd.hotel.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -13,6 +17,9 @@ public class Usuario {
     private String email;
     private String cpf;
     private String perfil;
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario")
+    private List<Reserva> reservas = new ArrayList<>();
 
     public Usuario() {
         this.perfil = "USER";
@@ -58,8 +65,20 @@ public class Usuario {
         this.cpf = cpf;
     }
 
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+
     public String getPerfil() {
         return perfil;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
     @Override
@@ -70,6 +89,7 @@ public class Usuario {
                 ", email='" + email + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", perfil='" + perfil + '\'' +
+                ", reservas=" + reservas +
                 '}';
     }
 }

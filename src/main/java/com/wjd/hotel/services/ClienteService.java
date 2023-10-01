@@ -6,4 +6,5 @@ import com.wjd.hotel.dtos.ClienteSaidaDto;
 public interface ClienteService {
 
     public ClienteSaidaDto salvarCliente (ClienteEntradaDto clienteEntradaDto);
+    public ClienteSaidaDto buscarClientePorId(final Long id);
 }

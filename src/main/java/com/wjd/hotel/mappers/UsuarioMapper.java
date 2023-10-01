@@ -31,4 +31,8 @@ public class UsuarioMapper {
 
         return usuarioSaidaDto;
     }
+
+    public Usuario deUsuarioSaidaDtoParaUsuarioEntidade(UsuarioSaidaDto usuarioSaidaDto){
+        return new Usuario(usuarioSaidaDto.getId(), usuarioSaidaDto.getNome(), usuarioSaidaDto.getEmail(), null);
+    }
 }

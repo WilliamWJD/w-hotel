@@ -31,4 +31,8 @@ public class ClienteMapper {
 
         return clienteSaidaDto;
     }
+
+    public Cliente deClienteSaidaDtoParaClienteEntidade(ClienteSaidaDto clienteSaidaDto){
+        return new Cliente(clienteSaidaDto.getId(), clienteSaidaDto.getNome(), clienteSaidaDto.getEmail(), null);
+    }
 }

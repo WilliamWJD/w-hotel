@@ -14,16 +14,28 @@ public class Reserva {
     private LocalDate checkOut;
     private Integer diarias;
     private LocalDateTime dataCriacao;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
+    @OneToOne
+    @JoinColumn(name = "quarto_id", nullable = false)
+    private Quarto quarto;
 
     public Reserva() {
     }
 
-    public Reserva(Long id, LocalDate checkIn, LocalDate checkOut, Integer diarias, LocalDateTime dataCriacao) {
+    public Reserva(Long id, LocalDate checkIn, LocalDate checkOut, Integer diarias, LocalDateTime dataCriacao, Usuario usuario, Cliente cliente, Quarto quarto) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.diarias = diarias;
         this.dataCriacao = dataCriacao;
+        this.usuario = usuario;
+        this.cliente = cliente;
+        this.quarto = quarto;
     }
 
     public Long getId() {
@@ -66,6 +78,30 @@ public class Reserva {
         this.dataCriacao = dataCriacao;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Quarto getQuarto() {
+        return quarto;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }
+
     @Override
     public String toString() {
         return "Reserva{" +
@@ -74,6 +110,9 @@ public class Reserva {
                 ", checkOut=" + checkOut +
                 ", diarias=" + diarias +
                 ", dataCriacao=" + dataCriacao +
+                ", usuario=" + usuario +
+                ", cliente=" + cliente +
+                ", quarto=" + quarto +
                 '}';
     }
 }

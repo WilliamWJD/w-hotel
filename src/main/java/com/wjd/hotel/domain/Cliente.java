@@ -1,6 +1,10 @@
 package com.wjd.hotel.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -12,8 +16,11 @@ public class Cliente {
     @Column(unique = true)
     private String email;
     private String cpf;
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
+    private List<Reserva> reservas = new ArrayList<>();
 
-    public Cliente(){
+    public Cliente() {
     }
 
     public Cliente(Long id, String nome, String email, String cpf) {
@@ -55,6 +62,14 @@ public class Cliente {
         this.cpf = cpf;
     }
 
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
@@ -62,6 +77,7 @@ public class Cliente {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", cpf='" + cpf + '\'' +
+                ", reservas=" + reservas +
                 '}';
     }
 }

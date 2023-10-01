@@ -3,6 +3,7 @@ package com.wjd.hotel.services.impl;
 import com.wjd.hotel.dtos.UsuarioEntradaDto;
 import com.wjd.hotel.dtos.UsuarioSaidaDto;
 import com.wjd.hotel.exceptions.impl.DataIntegrityViolationExceptionApp;
+import com.wjd.hotel.exceptions.impl.ObjectNotFoundExceptionApp;
 import com.wjd.hotel.mappers.UsuarioMapper;
 import com.wjd.hotel.repository.UsuarioRepository;
 import com.wjd.hotel.services.UsuarioService;
@@ -27,5 +28,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         } catch (DataIntegrityViolationException err) {
             throw new DataIntegrityViolationExceptionApp("Conflito na base de dados");
         }
+    }
+
+    @Override
+    public UsuarioSaidaDto buscarUsuarioPorId(Long id) {
+        return usuarioMapper.deUsuarioEntidadeParaUsuarioSaidaDto(usuarioRepository.findById(id).orElseThrow(() -> new ObjectNotFoundExceptionApp(("Usuario não encontrado com o ID: " + id))));
     }
 }
