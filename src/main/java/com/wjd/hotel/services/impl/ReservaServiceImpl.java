@@ -11,7 +11,6 @@ import com.wjd.hotel.services.QuartoService;
 import com.wjd.hotel.services.ReservaService;
 import com.wjd.hotel.services.UsuarioService;
 import com.wjd.hotel.utils.DateParse;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -71,6 +70,17 @@ public class ReservaServiceImpl implements ReservaService {
         reservaRepository.findById(reservaId).orElseThrow(()-> new ObjectNotFoundExceptionApp("Reserva não encontrada!"));
 
         return salvarReserva(reservaEntradaDto);
+    }
+
+    @Override
+    public ReservaSaidaDto buscarReservaPorId(Long reservaId) {
+        return reservaMapper.deReservaEntidadeParaReservaSaidaDto(reservaRepository.findById(reservaId).orElseThrow(()-> new ObjectNotFoundExceptionApp("Reserva não encontrada!")));
+    }
+
+    @Override
+    public void excluirReserva(Long reservaId) {
+        buscarReservaPorId(reservaId);
+        reservaRepository.deleteById(reservaId);
     }
 
     private void validaDataDeCheckInECheckOut(ReservaEntradaDto reservaEntradaDto) {

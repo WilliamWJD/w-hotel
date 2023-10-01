@@ -26,4 +26,13 @@ public class ReservaResource {
         reservaEntradaDto.setId(reservaId);
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.atualizarReserva(reservaId, reservaEntradaDto));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<ReservaSaidaDto> buscarReserva(@PathVariable(name = "id") final Long reservaId){
+        return ResponseEntity.ok(reservaService.buscarReservaPorId(reservaId));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirReserva(@PathVariable(name = "id") final Long reservaId){
+        reservaService.excluirReserva(reservaId);
+        return ResponseEntity.noContent().build();
+    }
 }
