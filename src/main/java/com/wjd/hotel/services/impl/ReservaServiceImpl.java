@@ -3,6 +3,7 @@ package com.wjd.hotel.services.impl;
 import com.wjd.hotel.domain.Reserva;
 import com.wjd.hotel.dtos.*;
 import com.wjd.hotel.exceptions.impl.HotelExceptionApp;
+import com.wjd.hotel.exceptions.impl.ObjectNotFoundExceptionApp;
 import com.wjd.hotel.mappers.ReservaMapper;
 import com.wjd.hotel.repository.ReservaRepository;
 import com.wjd.hotel.services.ClienteService;
@@ -10,11 +11,12 @@ import com.wjd.hotel.services.QuartoService;
 import com.wjd.hotel.services.ReservaService;
 import com.wjd.hotel.services.UsuarioService;
 import com.wjd.hotel.utils.DateParse;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -52,7 +54,7 @@ public class ReservaServiceImpl implements ReservaService {
         validaDataDeCheckInECheckOut(reservaEntradaDto);
 
         // verfica disponibilidade do quarto
-        verificaDisponibilidadeDeQuarto(reservaEntradaDto.getQuartoId(), DateParse.paraLocalDate(reservaEntradaDto.getCheckIn()));
+        verificaDisponibilidadeDeQuarto(reservaEntradaDto.getQuartoId(), DateParse.paraLocalDate(reservaEntradaDto.getCheckIn()), reservaEntradaDto.getId());
 
         Reserva reserva = reservaMapper.deReservaEntradaDtoParaReservaEntidade(reservaEntradaDto, usuario, cliente, quarto, diarias);
 
@@ -62,6 +64,13 @@ public class ReservaServiceImpl implements ReservaService {
         }
 
         return reservaMapper.deReservaEntidadeParaReservaSaidaDto(reservaRepository.save(reserva));
+    }
+
+    @Override
+    public ReservaSaidaDto atualizarReserva(Long reservaId, ReservaEntradaDto reservaEntradaDto) {
+        reservaRepository.findById(reservaId).orElseThrow(()-> new ObjectNotFoundExceptionApp("Reserva não encontrada!"));
+
+        return salvarReserva(reservaEntradaDto);
     }
 
     private void validaDataDeCheckInECheckOut(ReservaEntradaDto reservaEntradaDto) {
@@ -76,8 +85,15 @@ public class ReservaServiceImpl implements ReservaService {
         }
     }
 
-    private Boolean verificaDisponibilidadeDeQuarto(final Long quartoId, final LocalDate checkIn) {
-        Optional<Reserva> reserva = reservaRepository.verificarDisponibilidadeDeQuarto(quartoId, checkIn);
+    private Boolean verificaDisponibilidadeDeQuarto(final Long quartoId, final LocalDate checkIn, final Long reservaId) {
+        Optional<Reserva> reserva;
+
+        if(Objects.nonNull(reservaId)){
+            reserva = reservaRepository.verificarDisponibilidadeDeQuarto(quartoId, checkIn, reservaId);
+        }else{
+            reserva =  reservaRepository.verificarDisponibilidadeDeQuarto(quartoId, checkIn);
+        }
+
         if (reserva.isPresent()) {
             throw new HotelExceptionApp("Quarto com id: " + quartoId + " andar " + reserva.get().getQuarto().getAndar() + " indisponível");
         }

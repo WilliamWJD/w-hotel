@@ -6,6 +6,7 @@ import com.wjd.hotel.utils.DateParse;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Component
 public class ReservaMapper {
@@ -22,6 +23,10 @@ public class ReservaMapper {
     public Reserva deReservaEntradaDtoParaReservaEntidade(ReservaEntradaDto reservaEntradaDto, UsuarioSaidaDto usuario, ClienteSaidaDto cliente, QuartoSaidaDto quarto, long diarias) {
         Reserva reserva = new Reserva();
 
+        if (Objects.nonNull(reservaEntradaDto.getId())) {
+            reserva.setId(reservaEntradaDto.getId());
+        }
+
         reserva.setCheckIn(DateParse.paraLocalDate(reservaEntradaDto.getCheckIn()));
         reserva.setCheckOut(DateParse.paraLocalDate(reservaEntradaDto.getCheckOut()));
         reserva.setDiarias((int) diarias);
@@ -33,7 +38,7 @@ public class ReservaMapper {
         return reserva;
     }
 
-    public ReservaSaidaDto deReservaEntidadeParaReservaSaidaDto(Reserva reserva){
+    public ReservaSaidaDto deReservaEntidadeParaReservaSaidaDto(Reserva reserva) {
         ReservaSaidaDto reservaSaidaDto = new ReservaSaidaDto();
 
         reservaSaidaDto.setId(reserva.getId());
